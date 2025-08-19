@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+body {
+    background: #6c63ff;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 4px;
+    height: 65vh;
+    width: 80vw;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 1000px) {
+    .card {
+        flex-direction: row-reverse;
+    }
+
+    .card img.birthday {
+        width: 100%;
+        max-width: 50vw;
+        max-height: unset;
+    }
+}
+
+@media only screen and (max-height: 640px) {
+    .card {
+        flex-direction: row-reverse;
+    }
+
+    .card img.birthday {
+        width: 100%;
+        max-width: 50vw;
+        max-height: unset;
+    }
+}
+
+img.birthday {
+    max-height: 40vh;
+}
+
+.text {
+    padding: 1em;
+    color: #333;
+}
+
+.muted {
+    opacity: 0.8;
+}
+
+.space {
+    height: 100px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+.fade-in-element{
+    animation: fadeIn 2s ease-in forwards;
+}
+
+body.play-music {
+    animation: fadeIn 2s ease-in-out;
+}
+
+
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 99;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  opacity: 0.8;
+  animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+}
+}
+
+/* TAMBAHKAN DI AKHIR FILE style.css */
+
+/* Polaroid Photos di Pinggiran Card */
+.polaroid-photos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.polaroid {
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    padding: 12px 12px 35px 12px;
+    transform: rotate(var(--rotation));
+    transition: all 0.4s ease;
+    cursor: pointer;
+    z-index: 25;
+    pointer-events: auto;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.1);
+    z-index: 100;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.polaroid img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid #f0f0f0;
+}
+
+.polaroid-caption {
+    position: absolute;
+    bottom: 8px;
+    left: 12px;
+    right: 12px;
+    text-align: center;
+    font-size: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+.polaroid::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Posisi Polaroid Mengelilingi Area Card (tapi di luar card) */
+.polaroid:nth-child(1) { 
+    --rotation: -15deg; 
+    top: 5vh;
+    left: 2vw;
+}
+
+.polaroid:nth-child(2) { 
+    --rotation: 12deg; 
+    top: 3vh;
+    right: 3vw;
+}
+
+.polaroid:nth-child(3) { 
+    --rotation: -8deg; 
+    bottom: 8vh;
+    left: 1vw;
+}
+
+.polaroid:nth-child(4) { 
+    --rotation: 18deg; 
+    bottom: 6vh;
+    right: 2vw;
+}
+
+.polaroid:nth-child(5) { 
+    --rotation: -12deg; 
+    top: 50%;
+    left: 1vw;
+    transform: translateY(-50%) rotate(-12deg);
+}
+
+.polaroid:nth-child(6) { 
+    --rotation: 8deg; 
+    top: 50%;
+    right: 1vw;
+    transform: translateY(-50%) rotate(8deg);
+}
+
+/* Animasi untuk Polaroid */
+@keyframes polaroidShake {
+    0%, 100% { transform: rotate(var(--rotation)) translateX(0); }
+    25% { transform: rotate(var(--rotation)) translateX(-3px); }
+    75% { transform: rotate(var(--rotation)) translateX(3px); }
+}
+
+@keyframes polaroidFloat {
+    0%, 100% { transform: rotate(var(--rotation)) translateY(0px); }
+    50% { transform: rotate(var(--rotation)) translateY(-5px); }
+}
+
+.polaroid {
+    animation: polaroidFloat 3s ease-in-out infinite;
+}
+
+/* Special animation for center polaroids */
+.polaroid:nth-child(5) {
+    animation: polaroidFloat 3s ease-in-out infinite;
+}
+
+.polaroid:nth-child(5):hover {
+    transform: translateY(-50%) rotate(0deg) scale(1.1);
+}
+
+.polaroid:nth-child(6) {
+    animation: polaroidFloat 3s ease-in-out infinite;
+}
+
+.polaroid:nth-child(6):hover {
+    transform: translateY(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Responsive untuk Mobile */
+@media only screen and (max-width: 768px) {
+    .polaroid img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .polaroid {
+        padding: 8px 8px 25px 8px;
+    }
+    
+    .polaroid-caption {
+        font-size: 8px;
+    }
+    
+    /* Posisi mobile - lebih rapat ke tepi layar */
+    .polaroid:nth-child(1) { 
+        top: 3vh; 
+        left: 0.5vw; 
+    }
+    .polaroid:nth-child(2) { 
+        top: 2vh; 
+        right: 1vw; 
+    }
+    .polaroid:nth-child(3) { 
+        bottom: 5vh; 
+        left: 0vw; 
+    }
+    .polaroid:nth-child(4) { 
+        bottom: 4vh; 
+        right: 0.5vw; 
+    }
+    .polaroid:nth-child(5) { 
+        top: 45%; 
+        left: 0vw; 
+        transform: translateY(-50%) rotate(-12deg);
+    }
+    .polaroid:nth-child(6) { 
+        top: 55%; 
+        right: 0vw; 
+        transform: translateY(-50%) rotate(8deg);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .polaroid img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .polaroid {
+        padding: 6px 6px 20px 6px;
+    }
+    
+    .polaroid-caption {
+        font-size: 7px;
+    }
+}
